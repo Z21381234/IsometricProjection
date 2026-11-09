@@ -7,13 +7,14 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public final class ClientConfig {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.BooleanValue CUTAWAY_ENABLED, SHOW_HUD, SHOW_GUIDE;
-    public static final ModConfigSpec.DoubleValue CUTAWAY_RADIUS, CUTAWAY_DEPTH, DEFAULT_SPAN, ZOOM_STEP;
+    public static final ModConfigSpec.DoubleValue CUTAWAY_RADIUS, CUTAWAY_DEPTH, UNDERGROUND_RADIUS, DEFAULT_SPAN, ZOOM_STEP;
     public static final ModConfigSpec.IntValue ROTATION_MILLIS, ZOOM_MILLIS;
     static {
         ModConfigSpec.Builder b = new ModConfigSpec.Builder();
         CUTAWAY_ENABLED = b.translation("config.isometricprojection.cutawayEnabled").comment("Default/persisted cutaway preference. Illusion connections temporarily disable it.").define("cutawayEnabled", true);
         CUTAWAY_RADIUS = b.translation("config.isometricprojection.cutawayRadius").comment("Opening radius in projected world units.").defineInRange("cutawayRadius", 4D, 1D, 12D);
         CUTAWAY_DEPTH = b.translation("config.isometricprojection.cutawayDepth").comment("Maximum opening depth towards the camera, in blocks.").defineInRange("cutawayDepth", 32D, 4D, 32D);
+        UNDERGROUND_RADIUS = b.translation("config.isometricprojection.undergroundRadius").comment("Roof-removal radius used while the player has no sky access.").defineInRange("undergroundRadius", 10D, 4D, 24D);
         DEFAULT_SPAN = b.translation("config.isometricprojection.defaultSpan").comment("Default vertical visible world size. Applied when configuration is loaded/saved.").defineInRange("defaultSpan", 24D, 8D, 64D);
         ZOOM_STEP = b.translation("config.isometricprojection.zoomStep").defineInRange("zoomStep", 2D, .5D, 8D);
         ROTATION_MILLIS = b.translation("config.isometricprojection.rotationMillis").defineInRange("rotationMillis", 250, 1, 1000);

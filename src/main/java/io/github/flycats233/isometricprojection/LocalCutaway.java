@@ -46,8 +46,15 @@ public final class LocalCutaway {
         CutawayVolume next = CutawayVolume.DISABLED;
         if (enabled && CameraController.active()) {
             BlockPos feet = mc.player.blockPosition();
-            next = CutawayVolume.create(true, feet.getX() + .5, mc.player.getEyeY(), feet.getZ() + .5,
-                    CameraController.yaw(), CameraController.PITCH, ClientConfig.CUTAWAY_RADIUS.get(), ClientConfig.CUTAWAY_DEPTH.get());
+            double x = feet.getX() + .5, eyeY = mc.player.getEyeY(), z = feet.getZ() + .5;
+            if (mc.level != null && !mc.level.canSeeSky(feet)) {
+                // Enclosed space: remove the roof above the player so the fixed-angle camera can see down.
+                next = CutawayVolume.createRoof(true, x, eyeY, z,
+                        ClientConfig.UNDERGROUND_RADIUS.get(), ClientConfig.CUTAWAY_DEPTH.get());
+            } else {
+                next = CutawayVolume.create(true, x, eyeY, z,
+                        CameraController.yaw(), CameraController.PITCH, ClientConfig.CUTAWAY_RADIUS.get(), ClientConfig.CUTAWAY_DEPTH.get());
+            }
         }
         CutawayVolume previous = current;
         boolean sameLevel = mc.level == lastLevel;

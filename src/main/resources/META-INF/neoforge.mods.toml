@@ -24,3 +24,5 @@ side="BOTH"
 
 [[mixins]]
 config="isometricprojection.mixins.json"
+[[mixins]]
+config="isometricprojection.optional.mixins.json"
